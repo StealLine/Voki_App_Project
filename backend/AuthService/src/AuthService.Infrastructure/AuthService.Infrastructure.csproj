@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Libs\Infrastructure\InfrastructureShared.Auth\InfrastructureShared.Auth.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Infrastructure\InfrastructureShared.Base\InfrastructureShared.Base.csproj"/>
+        <ProjectReference Include="..\..\..\Libs\Infrastructure\InfrastructureShared.EfCore\InfrastructureShared.EfCore.csproj" />
+        <ProjectReference Include="..\AuthService.Application\AuthService.Application.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MailKit" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    </ItemGroup>
+</Project>

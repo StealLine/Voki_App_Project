@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="AWSSDK.S3" />
+        <PackageReference Include="Xabe.FFmpeg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Libs\ApiShared\ApiShared.csproj" />
+      <ProjectReference Include="..\Libs\Infrastructure\InfrastructureShared.Auth\InfrastructureShared.Auth.csproj" />
+      <ProjectReference Include="..\Libs\Infrastructure\InfrastructureShared.Base\InfrastructureShared.Base.csproj" />
+      <ProjectReference Include="..\Libs\VokimiStorageKeysLib\VokimiStorageKeysLib.csproj" />
+    </ItemGroup>
+</Project>

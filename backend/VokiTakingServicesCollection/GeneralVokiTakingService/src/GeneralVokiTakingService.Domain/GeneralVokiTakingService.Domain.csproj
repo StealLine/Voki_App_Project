@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Libs\VokimiStorageKeysLib\VokimiStorageKeysLib.csproj" />
+      <ProjectReference Include="..\..\..\..\SharedKernel\SharedKernel.csproj" />
+      <ProjectReference Include="..\..\..\VokiTakingServicesLib\VokiTakingServicesLib.Domain\VokiTakingServicesLib.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

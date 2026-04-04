@@ -1,0 +1,55 @@
+<svg id="text-general-voki-answer-type-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path
+        d="M14 19L11.1069 10.7479C9.76348 6.91597 9.09177 5 8 5C6.90823 5 6.23652 6.91597 4.89309 10.7479L2 19M4.5 12H11.5"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path
+        d="M21.9692 13.9392V18.4392M21.9692 13.9392C22.0164 13.1161 22.0182 12.4891 21.9194 11.9773C21.6864 10.7709 20.4258 10.0439 19.206 9.89599C18.0385 9.75447 17.1015 10.055 16.1535 11.4363M21.9692 13.9392L19.1256 13.9392C18.6887 13.9392 18.2481 13.9603 17.8272 14.0773C15.2545 14.7925 15.4431 18.4003 18.0233 18.845C18.3099 18.8944 18.6025 18.9156 18.8927 18.9026C19.5703 18.8724 20.1955 18.545 20.7321 18.1301C21.3605 17.644 21.9692 16.9655 21.9692 15.9392V13.9392Z"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<svg id="color-general-voki-answer-type-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path
+        d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C12.8417 22 14 22.1163 14 21C14 20.391 13.6832 19.9212 13.3686 19.4544C12.9082 18.7715 12.4523 18.0953 13 17C13.6667 15.6667 14.7778 15.6667 16.4815 15.6667C17.3334 15.6667 18.3334 15.6667 19.5 15.5C21.601 15.1999 22 13.9084 22 12Z"
+        stroke="currentColor"/>
+    <circle cx="7.5" cy="15" r="1.5" stroke="currentColor" ></circle>
+    <circle cx="9.5" cy="8.5" r="1.75" stroke="currentColor" ></circle>
+    <circle cx="16.5" cy="9.5" r="2" stroke="currentColor"></circle>
+</svg>
+<svg id="image-general-voki-answer-type-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path
+        d="M2 8.35581C2 6.81202 2 6.04013 2.44924 5.31447C2.89849 4.58881 3.45675 4.31073 4.57327 3.75459C9.26988 1.41517 14.7302 1.41511 19.4268 3.75458C20.5433 4.31073 21.1015 4.5888 21.5508 5.31445C22 6.04011 22 6.81199 22 8.35575V15.6444C22 17.1883 22 17.9602 21.5507 18.6859C21.1014 19.4116 20.5431 19.6896 19.4265 20.2457C14.73 22.5848 9.26995 22.5848 4.57349 20.2457C3.45688 19.6896 2.89857 19.4116 2.44929 18.6859C2 17.9602 2 17.1883 2 15.6444V8.35581Z"
+        stroke="currentColor"/>
+    <path
+        d="M2 14.1354C2.66663 14.0455 3.3406 14.0011 4.01569 14.0027C6.87163 13.9466 9.65761 14.7729 11.8765 16.3342C13.9345 17.7821 15.3805 19.7749 16 22"
+        stroke="currentColor" stroke-linejoin="round"/>
+    <path d="M22 16.8962C20.8246 16.3009 19.6088 15.9988 18.3862 16.0001C16.5345 15.9928 14.7015 16.6733 13 18"
+        stroke="currentColor" stroke-linejoin="round"/>
+    <circle cx="6.5" cy="7.5" r="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></circle>
+</svg>
+
+<svg id="audio-general-voki-answer-type-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path
+        d="M7 9.5C7 10.8807 5.88071 12 4.5 12C3.11929 12 2 10.8807 2 9.5C2 8.11929 3.11929 7 4.5 7C5.88071 7 7 8.11929 7 9.5ZM7 9.5V2C7.33333 2.5 7.6 4.6 10 5"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10.5" cy="19.5" r="2.5" stroke="currentColor"></circle>
+    <circle cx="20" cy="18" r="2" stroke="currentColor"></circle>
+    <path
+        d="M13 19.5L13 11C13 10.09 13 9.63502 13.2466 9.35248C13.4932 9.06993 13.9938 9.00163 14.9949 8.86504C18.0085 8.45385 20.2013 7.19797 21.3696 6.42937C21.6498 6.24509 21.7898 6.15295 21.8949 6.20961C22 6.26627 22 6.43179 22 6.76283V17.9259"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13 13C17.8 13 21 10.6667 22 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    </path>
+</svg>
+
+<svg id="general-voki-single-choice-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path d="M10.5 8.5L12.5 7V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path
+        d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<svg id="general-voki-multiple-choice-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+    <path
+        d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+        stroke="currentColor"/>
+    <path d="M11.992 12H12.001" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.9959 12H16.0049" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.9959 12H8.00488" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,117 @@
+  :root {
+    --back: #fbf9fe;
+    --text: #1e293b;
+    --primary: #5b57e2;
+    --primary-hov: #524DDB;
+    --primary-foreground: #fbf4fe;
+    --secondary: #f2f0f7;
+    --secondary-foreground: #585e7a;
+    --muted: #e5e3ec;
+    --muted-foreground: #4c4768;
+    --accent: #e6dfff;
+    --accent-foreground: #4d4c8e;
+    --warn-back: #fff7e5;
+    --warn-foreground: #d97706;
+    --err-shadow: 0 1px 3px 0px hsl(0deg 84% 50% / 8%), 0 1px 2px -1px hsl(0deg 84% 50% / 8%);
+    --font-family: "Rubik", sans-serif;
+    --radius: 0.375rem;
+
+    /* red */
+    --red-1: #ffe9ea;
+    --red-2: #ffe0e2;
+    --red-3: #fe3f41;
+    --red-4: #f33a3e;
+    --red-5: #e83939;
+    --red-6: #b91d05;
+    --red-7: #971e0b;
+
+
+
+    /* shadows */
+    --shadow-xs: rgb(26 0 51 / 12%) 0px 0px 0px 1px;
+    --shadow: 0 1px 3px 0px hsl(0deg 0% 0% / 10%), 0 1px 2px -1px hsl(0deg 0% 0% / 10%);
+    --shadow-md: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+    --shadow-lg: 0 1px 3px 0px hsl(0deg 0% 0% / 10%), 0 4px 6px -1px hsl(0deg 0% 0% / 10%);
+    --shadow-xl: 0 1px 3px 0px hsl(0deg 0% 0% / 10%), 0 8px 10px -1px hsl(0deg 0% 0% / 10%);
+    --shadow-2xl: 0 1px 3px 0px hsl(0deg 0% 0% / 25%);
+
+
+    /* voki-item */
+    --voki-cover-aspect-ratio: 1.7/1;
+    --voki-name-max-height: 2.4rem;
+    --voki-cover-name-gap: 0.5rem;
+    --voki-cover-border-radius: 0.875rem;
+
+    /* main layout */
+    --side-panel-width: 13rem;
+    --sides-padding: 1rem;
+    --layout-header-height: 3.5rem;
+    --layout-header-vertical-padding: 0.5rem;
+    --layout-header-search-height: 2.25rem;
+
+    /* other */
+    --lang-icon-aspect-ratio: 1.4/1;
+    --default-fade-in-animation: default-fade-in 0.08s ease-in-out;
+
+    background-color: var(--back);
+  }
+
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-family);
+
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  input,
+  textarea {
+    font-family: var(--font-family);
+    color: var(--text);
+
+  }
+
+  .unselectable {
+    user-select: none;
+  }
+
+  .appear-with-delay {
+    animation: fade-in-from-zero-with-delay 1s ease-in;
+  }
+
+  @keyframes default-fade-in {
+    from {
+      opacity: 0.4;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-from-zero {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-from-zero-with-delay {
+
+    0%,
+    40% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Libs\Infrastructure\InfrastructureShared.Base\InfrastructureShared.Base.csproj" />
+        <ProjectReference Include="..\..\..\..\Libs\Infrastructure\InfrastructureShared.Auth\InfrastructureShared.Auth.csproj" />
+        <ProjectReference Include="..\..\..\..\Libs\Infrastructure\InfrastructureShared.EfCore\InfrastructureShared.EfCore.csproj" />
+        <ProjectReference Include="..\..\..\..\Libs\Infrastructure\InfrastructureShared.Storage\InfrastructureShared.Storage.csproj" />
+        <ProjectReference Include="..\CoreVokiCreationService.Application\CoreVokiCreationService.Application.csproj" />
+    </ItemGroup>
+   
+</Project>
