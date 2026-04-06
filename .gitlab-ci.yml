@@ -1,3 +1,17 @@
+spec:
+  inputs:
+    DOTNET:
+      description: "Docker image for dotnet (optional, must containt curl command)"
+      default: ""
+    DOCKER_CLI:
+      description: "Docker CLI image (optional)"
+      default: ""
+    DOCKER_DIND:
+      description: "Docker dind image (optional)"
+      default: ""
+
+---
+
 include:
   - project: voki1/configuration_project
     ref: main
