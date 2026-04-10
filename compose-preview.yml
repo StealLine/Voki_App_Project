@@ -14,6 +14,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - $NETWORK_NAME
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -27,6 +29,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+      - $NETWORK_NAME
 
   # ── DB Seeder ────────────────────────────────────────────────────────────────
 
@@ -48,6 +52,9 @@ services:
         condition: service_healthy
     command: ["clear"]
     restart: "no"
+
+    networks:
+      - $NETWORK_NAME
 
   # ── Backend Services ────────────────────────────────────────────────────────
 
@@ -74,6 +81,10 @@ services:
       EmailServiceConfig__Port: ${EMAIL_PORT}
       EmailServiceConfig__Username: ${EMAIL_USERNAME}
       EmailServiceConfig__Password: ${EMAIL_PASSWORD}
+
+    networks:
+      - $NETWORK_NAME
+
     depends_on:
       postgres:
         condition: service_healthy
@@ -98,6 +109,8 @@ services:
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
       JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -122,6 +135,8 @@ services:
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
       JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -150,6 +165,8 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -174,6 +191,8 @@ services:
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
       JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -198,6 +217,8 @@ services:
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
       JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -222,6 +243,8 @@ services:
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
       JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -250,6 +273,8 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -278,6 +303,8 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -306,6 +333,8 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+    networks:
+      - $NETWORK_NAME
     depends_on:
       postgres:
         condition: service_healthy
@@ -329,6 +358,8 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+    networks:
+      - $NETWORK_NAME
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -337,11 +368,16 @@ services:
 
   frontend:
     image: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_SLUG
+    networks:
+      - $NETWORK_NAME
     environment:
       NODE_ENV: production
 
   nginx:
     image: $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_SLUG
+    networks:
+      - $NETWORK_NAME
+      - preview_deploy
     depends_on:
       - frontend
       - auth-service
@@ -359,3 +395,8 @@ services:
 volumes:
   postgres_data:
   rabbitmq_data:
+
+networks:
+  $NETWORK_NAME:
+  preview_deploy:
+    external: true
