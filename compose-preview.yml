@@ -375,6 +375,15 @@ services:
 
   nginx:
     image: ${CI_REGISTRY_IMAGE}/nginx:${CI_COMMIT_REF_SLUG}
+    labels:
+    - "traefik.http.routers.${CI_COMMIT_SHOR_SHA}.rule=Host(\`${CI_COMMIT_SHOR_SHA}.vokimi-test.ru\`)"
+    - "traefik.http.services.${CI_COMMIT_SHOR_SHA}.loadbalancer.server.port=80"
+    - "traefik.http.middlewares.${CI_COMMIT_SHOR_SHA}-auth.basicauth.users=${PREVIEW_PASS_HASH}"
+    - "traefik.http.routers.${CI_COMMIT_SHOR_SHA}.middlewares=${CI_COMMIT_SHOR_SHA}-auth"
+    - "traefik.http.routers.${CI_COMMIT_SHOR_SHA}.tls.certresolver=le"
+    - "traefik.http.routers.${CI_COMMIT_SHOR_SHA}.tls=true"
+    - "traefik.http.routers.${CI_COMMIT_SHOR_SHA}.entrypoints=websecure"
+
     networks:
       - ${NETWORK_NAME}
       - preview_deploy
