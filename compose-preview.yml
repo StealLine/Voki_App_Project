@@ -84,8 +84,8 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
-      AuthPrivateKey__PrivateKey: ${JWT_PRIVATE_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
+      AuthPrivateKey__PrivateKey: '${JWT_PRIVATE_KEY}'
       EmailServiceConfig__Host: ${EMAIL_HOST}
       EmailServiceConfig__Port: ${EMAIL_PORT}
       EmailServiceConfig__Username: ${EMAIL_USERNAME}
@@ -117,7 +117,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -143,7 +143,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -169,7 +169,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
       S3__AccessKey: ${S3_ACCESS_KEY}
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
@@ -201,7 +201,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -227,7 +227,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -253,7 +253,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -279,7 +279,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
       S3__AccessKey: ${S3_ACCESS_KEY}
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
@@ -311,7 +311,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
       S3__AccessKey: ${S3_ACCESS_KEY}
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
@@ -343,7 +343,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
       S3__AccessKey: ${S3_ACCESS_KEY}
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
@@ -370,7 +370,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: ${JWT_PUBLIC_KEY}
+      JwtTokenConfig__PublicKey: '${JWT_PUBLIC_KEY}'
       S3__AccessKey: ${S3_ACCESS_KEY}
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
