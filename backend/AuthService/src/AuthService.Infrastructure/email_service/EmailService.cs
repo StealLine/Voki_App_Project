@@ -77,10 +77,13 @@ internal class EmailService : IEmailService
 
             return ErrOrNothing.Nothing;
         }
-        catch {
-            return new Err("Could not establish connection to send an email");
-        }
-    }
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Send error: {ex.GetType().Name}: {ex.Message}");
+			Console.WriteLine($"Inner: {ex.InnerException?.Message}");
+			return new Err("Could not establish connection to send an email");
+		}
+	}
 
 	private async Task<SmtpClient> ConfigureSmtpClient()
 	{
