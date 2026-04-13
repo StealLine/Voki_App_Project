@@ -2,6 +2,7 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
+using Org.BouncyCastle.Ocsp;
 using SharedKernel.common.app_users;
 
 namespace AuthService.Infrastructure.email_service;
@@ -66,7 +67,7 @@ internal class EmailService : IEmailService
     ) {
         try {
             MimeMessage message = new();
-            message.From.Add(new MailboxAddress("Vokimi", _username));
+            message.From.Add(new MailboxAddress(_username, "onboarding@resend.dev"));
             message.To.Add(new MailboxAddress("", to.ToString()));
             message.Subject = subject;
             message.Body = new TextPart("html") { Text = body };
