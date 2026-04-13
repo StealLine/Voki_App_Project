@@ -82,12 +82,23 @@ internal class EmailService : IEmailService
         }
     }
 
-    private async Task<SmtpClient> ConfigureSmtpClient() {
-        var client = new SmtpClient();
+	private async Task<SmtpClient> ConfigureSmtpClient()
+	{
+		var client = new SmtpClient();
 		Console.WriteLine($"SMTP HOST: {_host}");
 		Console.WriteLine($"SMTP PORT: {_port}");
-		await client.ConnectAsync(_host, _port, true);
-        await client.AuthenticateAsync(_username, _password);
-        return client;
-    }
+		try
+		{
+			await client.ConnectAsync(_host, _port, SecureSocketOptions.StartTls);
+			Console.WriteLine("Connected successfully");
+			await client.AuthenticateAsync(_username, _password);
+			Console.WriteLine("Authenticated successfully");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"SMTP Error: {ex.GetType().Name}: {ex.Message}");
+			throw;
+		}
+		return client;
+	}
 }
