@@ -121,4 +121,4 @@ class VokiCreationBackendService extends BackendService implements IVokiCreation
     }
 }
 
-export const ApiVokiCreationGeneral = new VokiCreationBackendService('/api/voki-creation/general');
+export const ApiVokiCreationGeneral = new VokiCreationBackendService('/api/voki-creation/general/');
