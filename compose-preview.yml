@@ -31,7 +31,7 @@ services:
       retries: 10
     networks:
       - ${NETWORK_NAME}
-  
+
   # minio:  dont forget to create a bucket
   #   image: minio/minio
   #   environment:
@@ -44,7 +44,7 @@ services:
   # ── DB Seeder ────────────────────────────────────────────────────────────────
 
   db-seeder:
-    image: ${CI_REGISTRY_IMAGE}/db-seeder:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/db-seeder:${TAG_DB_SEEDER}
     environment:
       ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_auth_service_db;SslMode=Disable"
       ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_tags_service_db;SslMode=Disable"
@@ -61,14 +61,13 @@ services:
         condition: service_healthy
     command: ["clear"]
     restart: "no"
-
     networks:
       - ${NETWORK_NAME}
 
   # ── Backend Services ────────────────────────────────────────────────────────
 
   auth-service:
-    image: ${CI_REGISTRY_IMAGE}/auth:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/auth:${TAG_AUTH}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_auth_service_db;SslMode=Disable"
@@ -90,10 +89,8 @@ services:
       EmailServiceConfig__Port: ${EMAIL_PORT}
       EmailServiceConfig__Username: ${EMAIL_USERNAME}
       EmailServiceConfig__Password: ${EMAIL_PASSWORD}
-
     networks:
       - ${NETWORK_NAME}
-
     depends_on:
       postgres:
         condition: service_healthy
@@ -103,7 +100,7 @@ services:
         condition: service_completed_successfully
 
   albums-service:
-    image: ${CI_REGISTRY_IMAGE}/albums:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/albums:${TAG_ALBUMS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__AlbumsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_albums_service_db;SslMode=Disable"
@@ -129,7 +126,7 @@ services:
         condition: service_completed_successfully
 
   tags-service:
-    image: ${CI_REGISTRY_IMAGE}/tags:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/tags:${TAG_TAGS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_tags_service_db;SslMode=Disable"
@@ -155,7 +152,7 @@ services:
         condition: service_completed_successfully
 
   user-profiles-service:
-    image: ${CI_REGISTRY_IMAGE}/user-profiles:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/user-profiles:${TAG_USER_PROFILES}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__UserProfilesServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_user_profiles_service_db;SslMode=Disable"
@@ -185,7 +182,7 @@ services:
         condition: service_completed_successfully
 
   voki-comments-service:
-    image: ${CI_REGISTRY_IMAGE}/voki-comments:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/voki-comments:${TAG_VOKI_COMMENTS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__VokiCommentsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_comments_service_db;SslMode=Disable"
@@ -211,7 +208,7 @@ services:
         condition: service_completed_successfully
 
   voki-ratings-service:
-    image: ${CI_REGISTRY_IMAGE}/voki-ratings:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/voki-ratings:${TAG_VOKI_RATINGS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__VokiRatingsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_ratings_service_db;SslMode=Disable"
@@ -237,7 +234,7 @@ services:
         condition: service_completed_successfully
 
   vokis-catalog-service:
-    image: ${CI_REGISTRY_IMAGE}/vokis-catalog:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/vokis-catalog:${TAG_VOKIS_CATALOG}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__VokisCatalogServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_vokis_catalog_service_db;SslMode=Disable"
@@ -263,7 +260,7 @@ services:
         condition: service_completed_successfully
 
   core-voki-creation-service:
-    image: ${CI_REGISTRY_IMAGE}/core-voki-creation:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/core-voki-creation:${TAG_CORE_VOKI_CREATION}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__CoreVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_core_service_db;SslMode=Disable"
@@ -292,9 +289,8 @@ services:
       db-seeder:
         condition: service_completed_successfully
 
-
   general-voki-creation-service:
-    image: ${CI_REGISTRY_IMAGE}/general-voki-creation:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/general-voki-creation:${TAG_GENERAL_VOKI_CREATION}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__GeneralVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_general_service_db;SslMode=Disable"
@@ -324,7 +320,7 @@ services:
         condition: service_completed_successfully
 
   general-voki-taking-service:
-    image: ${CI_REGISTRY_IMAGE}/general-voki-taking:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/general-voki-taking:${TAG_GENERAL_VOKI_TAKING}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__GeneralVokiTakingServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_taking_general_service_db;SslMode=Disable"
@@ -354,7 +350,7 @@ services:
         condition: service_completed_successfully
 
   vokimi-storage-service:
-    image: ${CI_REGISTRY_IMAGE}/storage:${TAG_BAKCEND}
+    image: ${CI_REGISTRY_IMAGE}/storage:${TAG_STORAGE}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ServiceName: StorageService
@@ -374,7 +370,6 @@ services:
       rabbitmq:
         condition: service_healthy
 
-
   # ── Frontend + Nginx ────────────────────────────────────────────────────────
 
   frontend:
@@ -385,17 +380,16 @@ services:
       NODE_ENV: production
 
   nginx:
-    image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_FRONTEND}
+    image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
     labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`)"
-    - "traefik.http.services.${CI_COMMIT_SHORT_SHA}.loadbalancer.server.port=80"
-    - "traefik.http.middlewares.${CI_COMMIT_SHORT_SHA}-auth.basicauth.users=${PREVIEW_PASS_HASH}"
-    - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.middlewares=${CI_COMMIT_SHORT_SHA}-auth"
-    - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls.certresolver=le"
-    - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls=true"
-    - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.entrypoints=websecure"
-
+      - "traefik.enable=true"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`)"
+      - "traefik.http.services.${CI_COMMIT_SHORT_SHA}.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.${CI_COMMIT_SHORT_SHA}-auth.basicauth.users=${PREVIEW_PASS_HASH}"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.middlewares=${CI_COMMIT_SHORT_SHA}-auth"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls.certresolver=le"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls=true"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.entrypoints=websecure"
     networks:
       - ${NETWORK_NAME}
       - preview_deploy
