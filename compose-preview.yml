@@ -390,6 +390,7 @@ services:
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls.certresolver=le"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls=true"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.entrypoints=websecure"
+      - "traefik.docker.network=preview_deploy"
     networks:
       - ${NETWORK_NAME}
       - preview_deploy
