@@ -398,13 +398,11 @@ services:
     image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`)"
-      - "traefik.http.services.${CI_COMMIT_SHORT_SHA}.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.${CI_COMMIT_SHORT_SHA}-auth.basicauth.users=${PREVIEW_PASS_HASH}"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.middlewares=${CI_COMMIT_SHORT_SHA}-auth"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls.certresolver=le"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.tls=true"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.entrypoints=websecure"
+      - "traefik.http.routers.vokimi.rule=Host(`vokimi-test.ru`)"
+      - "traefik.http.services.vokimi.loadbalancer.server.port=80"
+      - "traefik.http.routers.vokimi.tls.certresolver=le"
+      - "traefik.http.routers.vokimi.tls=true"
+      - "traefik.http.routers.vokimi.entrypoints=websecure"
       - "traefik.docker.network=${DEPLOY_NETWORK_NAME}"
     networks:
       - ${NETWORK_NAME}
