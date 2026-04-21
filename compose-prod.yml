@@ -1,6 +1,8 @@
 services:
 
+
   # ── Infrastructure ──────────────────────────────────────────────────────────
+
 
   postgres:
     image: postgres:16
@@ -17,6 +19,7 @@ services:
     networks:
       - ${NETWORK_NAME}
 
+
   rabbitmq:
     image: rabbitmq:3-management
     environment:
@@ -32,39 +35,13 @@ services:
     networks:
       - ${NETWORK_NAME}
 
-  minio:
-    image: minio/minio
-    environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: minio123
 
-    volumes:
-      - minio-data:/data
-    command: server /data --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - ${NETWORK_NAME}
 
-  minio-init:
-    image: minio/mc
-    depends_on:
-      minio:
-        condition: service_healthy
-    entrypoint: >
-      /bin/sh -c "
-        mc alias set local http://minio:9000 minio minio123 &&
-        mc mb --ignore-existing local/vokimi-storage &&
-        echo 'Bucket ready'
-      "
-    networks:
-      - ${NETWORK_NAME}
+
 
 
   # ── DB Seeder ────────────────────────────────────────────────────────────────
+
 
   db-seeder:
     image: ${CI_REGISTRY_IMAGE}/db-seeder:${TAG_DB_SEEDER}
@@ -87,7 +64,9 @@ services:
     networks:
       - ${NETWORK_NAME}
 
+
   # ── Backend Services ────────────────────────────────────────────────────────
+
 
   auth-service:
     image: ${CI_REGISTRY_IMAGE}/auth:${TAG_AUTH}
@@ -122,6 +101,7 @@ services:
       db-seeder:
         condition: service_completed_successfully
 
+
   albums-service:
     image: ${CI_REGISTRY_IMAGE}/albums:${TAG_ALBUMS}
     environment:
@@ -148,6 +128,7 @@ services:
       db-seeder:
         condition: service_completed_successfully
 
+
   tags-service:
     image: ${CI_REGISTRY_IMAGE}/tags:${TAG_TAGS}
     environment:
@@ -173,6 +154,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
+
 
   user-profiles-service:
     image: ${CI_REGISTRY_IMAGE}/user-profiles:${TAG_USER_PROFILES}
@@ -203,8 +185,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
-      minio:
-        condition: service_healthy
+
 
   voki-comments-service:
     image: ${CI_REGISTRY_IMAGE}/voki-comments:${TAG_VOKI_COMMENTS}
@@ -232,6 +213,7 @@ services:
       db-seeder:
         condition: service_completed_successfully
 
+
   voki-ratings-service:
     image: ${CI_REGISTRY_IMAGE}/voki-ratings:${TAG_VOKI_RATINGS}
     environment:
@@ -258,6 +240,7 @@ services:
       db-seeder:
         condition: service_completed_successfully
 
+
   vokis-catalog-service:
     image: ${CI_REGISTRY_IMAGE}/vokis-catalog:${TAG_VOKIS_CATALOG}
     environment:
@@ -283,6 +266,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
+
 
   core-voki-creation-service:
     image: ${CI_REGISTRY_IMAGE}/core-voki-creation:${TAG_CORE_VOKI_CREATION}
@@ -313,8 +297,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
-      minio:
-        condition: service_healthy
+
 
   general-voki-creation-service:
     image: ${CI_REGISTRY_IMAGE}/general-voki-creation:${TAG_GENERAL_VOKI_CREATION}
@@ -345,8 +328,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
-      minio:
-        condition: service_healthy
+
 
   general-voki-taking-service:
     image: ${CI_REGISTRY_IMAGE}/general-voki-taking:${TAG_GENERAL_VOKI_TAKING}
@@ -377,8 +359,7 @@ services:
         condition: service_healthy
       db-seeder:
         condition: service_completed_successfully
-      minio:
-        condition: service_healthy
+
 
   vokimi-storage-service:
     image: ${CI_REGISTRY_IMAGE}/storage:${TAG_STORAGE}
@@ -400,10 +381,10 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-      minio:
-        condition: service_healthy
+
 
   # ── Frontend + Nginx ────────────────────────────────────────────────────────
+
 
   frontend:
     image: ${CI_REGISTRY_IMAGE}/frontend:${TAG_FRONTEND}
@@ -411,6 +392,7 @@ services:
       - ${NETWORK_NAME}
     environment:
       NODE_ENV: production
+
 
   nginx:
     image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
@@ -441,12 +423,16 @@ services:
       - general-voki-taking-service
       - vokimi-storage-service
 
+
 volumes:
   postgres_data:
+    external: true
   rabbitmq_data:
-  minio-data: 
+    external: true
+
 
 networks:
   ${NETWORK_NAME}:
+    external: true
   ${DEPLOY_NETWORK_NAME}:
     external: true
