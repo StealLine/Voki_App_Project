@@ -67,8 +67,8 @@ internal class EmailService : IEmailService
     ) {
         try {
             MimeMessage message = new();
-            message.From.Add(new MailboxAddress(_username, "onboarding@resend.dev"));
-            message.To.Add(new MailboxAddress("", to.ToString()));
+			message.From.Add(new MailboxAddress("Vokimi", _username));
+			message.To.Add(new MailboxAddress("", to.ToString()));
             message.Subject = subject;
             message.Body = new TextPart("html") { Text = body };
 
@@ -95,7 +95,7 @@ internal class EmailService : IEmailService
 		{
 			await client.ConnectAsync(_host, _port, SecureSocketOptions.StartTls);
 			Console.WriteLine("Connected successfully");
-			await client.AuthenticateAsync(_username, _password);
+			await client.AuthenticateAsync("resend", _password);
 			Console.WriteLine("Authenticated successfully");
 		}
 		catch (Exception ex)
