@@ -194,6 +194,7 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+      S3__ForcePathStyle: "true"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -304,6 +305,7 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+      S3__ForcePathStyle: "true"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -336,6 +338,7 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+      S3__ForcePathStyle: "true"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -368,6 +371,7 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+      S3__ForcePathStyle: "true"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -395,6 +399,7 @@ services:
       S3__SecretKey: ${S3_SECRET_KEY}
       S3__ServiceURL: ${S3_SERVICE_URL}
       S3__MainBucket__Name: vokimi-storage
+      S3__ForcePathStyle: "true"
     networks:
       - ${NETWORK_NAME}
     depends_on:

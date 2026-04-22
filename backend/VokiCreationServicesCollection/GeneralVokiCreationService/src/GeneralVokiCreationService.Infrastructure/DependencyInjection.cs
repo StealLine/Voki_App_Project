@@ -63,8 +63,12 @@ public static class DependencyInjection
 
         services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(
             new BasicAWSCredentials(s3Config.AccessKey, s3Config.SecretKey),
-            new AmazonS3Config { ServiceURL = s3Config.ServiceUrl }
-        ));
+			new AmazonS3Config
+			{
+				ServiceURL = s3Config.ServiceUrl,
+				ForcePathStyle = s3Config.ForcePathStyle
+			}
+		));
 
         services.AddSingleton(s3Config.MainBucket); //S3MainBucketConf
 
