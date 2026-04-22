@@ -37,7 +37,7 @@ services:
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
-
+      MINIO_BROWSER_REDIRECT_URL: https://${FRONTEND_URL}/minio-console
     volumes:
       - minio-data:/data
     command: server /data --console-address ":9001"
@@ -416,7 +416,11 @@ services:
     image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`)"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`) && !PathPrefix(`/minio-console`)"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`) && PathPrefix(`/minio-console`)"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.tls=true"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.tls.certresolver=le"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.entrypoints=websecure"
       - "traefik.http.services.${CI_COMMIT_SHORT_SHA}.loadbalancer.server.port=80"
       - "traefik.http.middlewares.${CI_COMMIT_SHORT_SHA}-auth.basicauth.users=${PREVIEW_PASS_HASH}"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.middlewares=${CI_COMMIT_SHORT_SHA}-auth"
