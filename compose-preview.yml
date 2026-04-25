@@ -49,19 +49,35 @@ services:
     networks:
       - ${NETWORK_NAME}
 
-  minio-init:
-    image: minio/mc
-    depends_on:
-      minio:
-        condition: service_healthy
-    entrypoint: >
-      /bin/sh -c "
-        mc alias set local http://minio:9000 minio minio123 &&
-        mc mb --ignore-existing local/vokimi-storage &&
-        echo 'Bucket ready'
-      "
-    networks:
-      - ${NETWORK_NAME}
+minio-init:
+  image: minio/mc
+  depends_on:
+    minio:
+      condition: service_healthy
+  entrypoint: >
+    /bin/sh -c "
+      mc alias set local http://minio:9000 minio minio123 &&
+
+      mc mb --ignore-existing local/vokimi-storage &&
+
+      # common
+      echo '' | mc pipe local/vokimi-storage/common/default-user-profile-pic.webp &&
+      echo '' | mc pipe local/vokimi-storage/common/default-voki-cover.webp &&
+
+      # preset-profile-pics
+      for name in \
+        basic-black \
+        pets-marsita pets-ya-cat pets-zara pets-monika \
+        boykisser-1 boykisser-2 boykisser-3 boykisser-4 \
+        dasha-1 dasha-2 dasha-3 dasha-4
+      do
+        echo '' | mc pipe local/vokimi-storage/preset-profile-pics/$${name}.webp
+      done &&
+
+      echo 'Bucket + structure ready'
+    "
+  networks:
+    - ${NETWORK_NAME}
 
 
   # ── DB Seeder ────────────────────────────────────────────────────────────────
