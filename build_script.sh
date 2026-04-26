@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-     
+      
 # Map service name → csproj path and output dir
 build_service() {
   SERVICE=$1
