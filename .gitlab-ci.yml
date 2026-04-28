@@ -1,4 +1,4 @@
-include:  
+include:    
   - project: voki1/configuration_project
     ref: main
     file: .gitlab-ci.yml     
