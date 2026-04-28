@@ -35,6 +35,11 @@ services:
       POSTGRES_DATABASE: dbname
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    
+    depends_on:
+      postgres:
+        condition: service_healthy
+        
     networks:
       - ${NETWORK_NAME}
 
