@@ -10,4 +10,6 @@ ENV ASPNETCORE_URLS=http://+:8080
 
 EXPOSE 8080
 
+USER nobody
+
 ENTRYPOINT ["sh", "-c", "dotnet $(ls *.runtimeconfig.json | head -1 | sed 's/.runtimeconfig.json/.dll/') \"$@\"", "--"]
