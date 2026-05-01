@@ -4,7 +4,8 @@ WORKDIR /app
 COPY frontend/build ./build
 COPY frontend/package.json .
 
-RUN npm install --omit=dev
+RUN npm install --omit=dev \
+    && chown -R nobody:nobody /app
 
 EXPOSE 3000
 
