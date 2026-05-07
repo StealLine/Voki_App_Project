@@ -598,7 +598,7 @@ services:
     image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vokimi.rule=Host(`vokimi-test.ru`)"
+      - "traefik.http.routers.vokimi.rule=Host(`${DOMAIN}`)"
       - "traefik.http.services.vokimi.loadbalancer.server.port=8080"
       - "traefik.http.routers.vokimi.tls.certresolver=le"
       - "traefik.http.routers.vokimi.tls=true"

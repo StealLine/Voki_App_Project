@@ -426,8 +426,8 @@ services:
     image: ${CI_REGISTRY_IMAGE}/nginx:${TAG_NGINX}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`) && !PathPrefix(`/minio-console`)"
-      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.rule=Host(`${CI_COMMIT_SHORT_SHA}.vokimi-test.ru`) && PathPrefix(`/minio-console`)"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}.rule=Host(`${CI_COMMIT_SHORT_SHA}.${DOMAIN}`) && !PathPrefix(`/minio-console`)"
+      - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.rule=Host(`${CI_COMMIT_SHORT_SHA}.${DOMAIN}`) && PathPrefix(`/minio-console`)"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.tls=true"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.tls.certresolver=le"
       - "traefik.http.routers.${CI_COMMIT_SHORT_SHA}-minio.entrypoints=websecure"
