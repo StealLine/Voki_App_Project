@@ -26,8 +26,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: auth
       POSTGRES_HOST: postgres
@@ -46,8 +46,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: tags
       POSTGRES_HOST: postgres
@@ -66,8 +66,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: user-profiles
       POSTGRES_HOST: postgres
@@ -86,8 +86,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: core-voki-creation
       POSTGRES_HOST: postgres
@@ -106,8 +106,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: general-voki-creation
       POSTGRES_HOST: postgres
@@ -126,8 +126,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: vokis-catalog
       POSTGRES_HOST: postgres
@@ -146,8 +146,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: general-voki-taking
       POSTGRES_HOST: postgres
@@ -166,8 +166,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: voki-ratings
       POSTGRES_HOST: postgres
@@ -186,8 +186,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: voki-comments
       POSTGRES_HOST: postgres
@@ -206,8 +206,8 @@ services:
       SCHEDULE: '@daily'
       BACKUP_KEEP_DAYS: 7
       S3_ENDPOINT: https://s3.yandexcloud.net
-      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
-      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
       S3_BUCKET: vokimi-pg-backups
       S3_PREFIX: albums
       POSTGRES_HOST: postgres
