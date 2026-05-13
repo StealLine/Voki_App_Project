@@ -1,9 +1,5 @@
 # Vokimi Application & Deployment Files
 
-## About
-
-#### This application was developed by [SaYMooN0](https://github.com/SaYMooN0?utm_source=chatgpt.com).
-
 #### All required instructions for deployment can be found in this [repo](https://github.com/StealLine/DEVOPS_WORKFLOW_MICROSERVICES)
 
 ## Documentation Overview
@@ -12,6 +8,8 @@ This repository contains the **Vokimi** application along with all required conf
 
 
 # About vokimi
+
+#### This application was developed by [SaYMooN0](https://github.com/SaYMooN0?utm_source=chatgpt.com).
 
 Vokimi is a web application for interacting with quiz-tests (similar to the ones on uquiz.com), which are called Vokis here. Users can create Vokis alone or in team, take them, leave unfinished and then continue later in the same session, collect into albums, rate and manage (i.e. track statistics after publication).
 
