@@ -54,18 +54,19 @@ which is used for compressing image and audio files through FFmpeg and uploading
 ---
 
 # Vokimi — Configuration Files Reference
-
+ 
+---
+ 
 ## `build_script.sh`
-
- Shell script that chooses apropriate services to build and chooses apropriate build 
-
+ 
+A shell script that chooses the appropriate services to build and runs the appropriate build commands.
+ 
 **Behavior:**
-
+ 
 - If the environment variable `BUILD_SERVICE` is set, only that service is built.
 - Otherwise, all 12 services are built sequentially.
-
 **Supported service names** (passed via `BUILD_SERVICE`):
-
+ 
 | Value | Output directory |
 |---|---|
 | `auth` | `publish/auth` |
@@ -80,42 +81,40 @@ which is used for compressing image and audio files through FFmpeg and uploading
 | `general-voki-taking` | `publish/general-voki-taking` |
 | `storage` | `publish/storage` |
 | `db-seeder` | `publish/db-seeder` |
-
-All services are built in `Release` configuration.
-
+ 
 **Usage:**
-
+ 
 ```sh
 # Build all services
 ./build_script.sh
-
+ 
 # Build a single service
 BUILD_SERVICE=auth ./build_script.sh
 ```
-
+ 
 ---
-
+ 
 ## `compose-preview.yml`
-
-Docker Compose file for the **preview** environment. Deployed once per commit on a staging server behind a Traefik.
-
+ 
+Docker Compose file for the **preview** environment. Deployed once per commit on a staging server behind Traefik.
+ 
 ### Infrastructure services
-
+ 
 | Service | Image | Notes |
 |---|---|---|
-| `postgres` | `postgres:16` | Shared database for all microservices.|
+| `postgres` | `postgres:16` | Shared database for all microservices. |
 | `rabbitmq` | `rabbitmq:3-management` | Message broker. |
-| `minio` | `minio/minio` | S3-compatible object storage. Releases UI at yourdomain/minio-console |
-| `minio-init` | `minio/mc` | One-shot initializer: creates the `vokimi-storage` bucket and pre-populates default assets.
-
+| `minio` | `minio/minio` | S3-compatible object storage. Exposes UI at `yourdomain/minio-console`. |
+| `minio-init` | `minio/mc` | One-shot initializer: creates the `vokimi-storage` bucket and pre-populates default assets. |
+ 
 ### `db-seeder`
-
-Runs migrations for all service databases via connection strings injected as environment variables. It runs with `command: ["clear"]` and `restart: "no"`, meaning it exits after seeding and is not restarted. 
-
+ 
+Runs migrations for all service databases via connection strings injected as environment variables. It runs with `command: ["clear"]` and `restart: "no"`, meaning it exits after seeding and is not restarted.
+ 
 ### Backend services
-
+ 
 All backend services share the following common environment variables:
-
+ 
 | Variable | Description |
 |---|---|
 | `ASPNETCORE_ENVIRONMENT` | Set to `Production` |
@@ -125,87 +124,48 @@ All backend services share the following common environment variables:
 | `ServiceName` | Logical name used internally |
 | `FrontendUrl` | Base URL of the frontend (used for CORS and email links) |
 | `JwtTokenConfig__*` | JWT tokens |
-
+ 
 Services that handle file uploads additionally receive S3 configuration:
-
+ 
 | Variable | Description |
 |---|---|
 | `S3__AccessKey` / `SecretKey` | MinIO credentials |
 | `S3__ServiceURL` | MinIO endpoint URL |
 | `S3__MainBucket__Name` | Always `vokimi-storage` |
 | `S3__ForcePathStyle` | `true` (required for MinIO) |
-
+ 
 `auth-service` additionally receives email configuration (`EmailServiceConfig__*`).
-
+ 
 `vokimi-storage-service` additionally sets `FfmpegPath: /usr/bin`.
-
-## `Frontend & Nginx`
-
+ 
+### Frontend & Nginx
+ 
 | Service | Description |
 |---|---|
 | `frontend` | Node.js app. Depends on no backend services directly. |
 | `nginx` | Reverse proxy. Carries Traefik labels that expose the deployment at `<CI_COMMIT_SHORT_SHA>.<DOMAIN>` over HTTPS. HTTP Basic Auth is enforced via `PREVIEW_PASS_HASH`. Depends on all backend services and `frontend`. |
-
+ 
 Nginx is connected to two networks: the internal compose network and an external Traefik network (`DEPLOY_NETWORK_NAME`).
-
-nginx-preview.conf and nginx-prod.conf is just routing requests coming from traefik to according service, nothing special there
-
+ 
+`nginx-preview.conf` and `nginx-prod.conf` simply route requests coming from Traefik to the appropriate service — nothing special there.
+ 
 ---
-
+ 
 ## `compose-prod.yml`
-
-Structurally identical to `compose-preview.yml` with two differences:
-
+ 
+Structurally identical to `compose-preview.yml` with some differences:
+ 
 - The Nginx Traefik labels use a fixed domain targeting the production hostname.
-- Instead of minio you should use S3 compatible cloud provider like  AWS S3 or similar
-- There is also containers named backup-... is doing backups into your S3 storage every day, and keep it for 7 days untill it is deleted, you are free to modify this.
+- Instead of MinIO, you should use an S3-compatible cloud provider like AWS S3 or similar.
+- There are also containers named `backup-*` that perform daily backups into your S3 storage and retain them for 7 days before deletion. You are free to modify this.
 ---
-
-
----
-
+ 
 ## Dockerfiles
-
-### `Dockerfile.backend`
-
-Used for all .NET backend services except the storage service.
-
-- Base image: `mcr.microsoft.com/dotnet/aspnet:9.0-alpine`
-- Build arg `SERVICE` selects which pre-built publish output to copy from `publish/<SERVICE>/`.
-- Listens on port **8080** (`ASPNETCORE_URLS=http://+:8080`).
-- Runs as `nobody`.
-- Entrypoint: auto-detects the service DLL from the `*.runtimeconfig.json` file at startup.
-
-### `Dockerfile.storage`
-
-Same as `Dockerfile.backend` but installs **ffmpeg** (`apk add --no-cache ffmpeg`) before copying application files. Used for `VokimiStorageService`.
-
-### `Dockerfile.frontend`
-
-- Base image: `node:22-alpine`
-- Copies a pre-built SvelteKit/Node output from `frontend/build` and `frontend/package.json`.
-- Installs production dependencies only (`--omit=dev`).
-- Runs as `nobody` on port **3000**.
-- Entrypoint: `node build`
-
-### `Dockerfile.nginx`
-
-- Base image: `nginx:alpine`
-- Copies `nginx.conf` (the environment-specific config is renamed to `nginx.conf` during CI).
-- Drops privileges to `nobody`.
-- Exposes port **80** (Traefik handles TLS termination upstream).
-
+ 
+Each Dockerfile simply builds the appropriate service. `Dockerfile.backend` is similar for almost all services except the storage service. `Dockerfile.frontend` and `Dockerfile.backend` are also pretty straightforward. The only thing worth mentioning is that all of them run as the `nobody` user for extra safety.
+ 
 ---
-
+ 
 ## `.gitlab-ci.yml`
-
-```yaml
-include:
-  - project: voki1/configuration_project
-    ref: main
-    file: .gitlab-ci.yml
-```
-
-The entire CI pipeline is defined in an external shared project (`voki1/configuration_project`). This file simply includes it. All build, test, and deploy jobs are maintained centrally there.
-
-### Required environment variables to be set
+ 
+The entire CI pipeline is defined in an external shared project [CI_CD_VOKIMI](https://github.com/StealLine/CI_CD_Configuration_Vokimi). This file simply includes it. All build, test, and deploy jobs are maintained centrally there.
