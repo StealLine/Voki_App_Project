@@ -1,4 +1,4 @@
 include:    
-  - project: voki1/configuration_project
+  - project: $PROJECT_REF
     ref: main
     file: .gitlab-ci.yml     
