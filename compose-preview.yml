@@ -5,8 +5,8 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_PASSWORD_PREVIEW: ${POSTGRES_PASSWORD_PREVIEW}
-      POSTGRES_USER_PREVIEW: ${POSTGRES_USER_PREVIEW}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_PREVIEW}
+      POSTGRES_USER: ${POSTGRES_USER_PREVIEW}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
