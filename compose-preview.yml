@@ -5,12 +5,12 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD_PREVIEW: ${POSTGRES_PASSWORD_PREVIEW}
+      POSTGRES_USER_PREVIEW: ${POSTGRES_USER_PREVIEW}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER_PREVIEW}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -20,8 +20,8 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER_PREVIEW}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD_PREVIEW}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
@@ -74,16 +74,16 @@ services:
   db-seeder:
     image: ${CI_REGISTRY_IMAGE}/db-seeder:${TAG_DB_SEEDER}
     environment:
-      ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_auth_service_db;SslMode=Disable"
-      ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_tags_service_db;SslMode=Disable"
-      ConnectionStrings__UserProfilesServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_user_profiles_service_db;SslMode=Disable"
-      ConnectionStrings__CoreVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_core_service_db;SslMode=Disable"
-      ConnectionStrings__GeneralVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_general_service_db;SslMode=Disable"
-      ConnectionStrings__VokisCatalogServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_vokis_catalog_service_db;SslMode=Disable"
-      ConnectionStrings__GeneralVokiTakingServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_taking_general_service_db;SslMode=Disable"
-      ConnectionStrings__VokiRatingsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_ratings_service_db;SslMode=Disable"
-      ConnectionStrings__VokiCommentsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_comments_service_db;SslMode=Disable"
-      ConnectionStrings__AlbumsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_albums_service_db;SslMode=Disable"
+      ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_auth_service_db;SslMode=Disable"
+      ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_tags_service_db;SslMode=Disable"
+      ConnectionStrings__UserProfilesServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_user_profiles_service_db;SslMode=Disable"
+      ConnectionStrings__CoreVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_creation_core_service_db;SslMode=Disable"
+      ConnectionStrings__GeneralVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_creation_general_service_db;SslMode=Disable"
+      ConnectionStrings__VokisCatalogServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_vokis_catalog_service_db;SslMode=Disable"
+      ConnectionStrings__GeneralVokiTakingServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_taking_general_service_db;SslMode=Disable"
+      ConnectionStrings__VokiRatingsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_ratings_service_db;SslMode=Disable"
+      ConnectionStrings__VokiCommentsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_comments_service_db;SslMode=Disable"
+      ConnectionStrings__AlbumsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_albums_service_db;SslMode=Disable"
     depends_on:
       postgres:
         condition: service_healthy
@@ -98,10 +98,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/auth:${TAG_AUTH}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_auth_service_db;SslMode=Disable"
+      ConnectionStrings__AuthServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_auth_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: AuthService
@@ -111,8 +111,8 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      AuthPrivateKey__PrivateKey: "${JWT_PRIVATE_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      AuthPrivateKey__PrivateKey: "${JWT_PRIVATE_KEY_PREVIEW}"
       EmailServiceConfig__Host: ${EMAIL_HOST}
       EmailServiceConfig__Port: ${EMAIL_PORT}
       EmailServiceConfig__Username: ${EMAIL_USERNAME}
@@ -131,10 +131,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/albums:${TAG_ALBUMS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__AlbumsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_albums_service_db;SslMode=Disable"
+      ConnectionStrings__AlbumsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_albums_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: AlbumsService
@@ -142,7 +142,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -157,10 +157,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/tags:${TAG_TAGS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_tags_service_db;SslMode=Disable"
+      ConnectionStrings__TagsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_tags_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: TagsService
@@ -168,7 +168,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -183,10 +183,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/user-profiles:${TAG_USER_PROFILES}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__UserProfilesServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_user_profiles_service_db;SslMode=Disable"
+      ConnectionStrings__UserProfilesServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_user_profiles_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: UserProfilesService
@@ -194,10 +194,10 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      S3__AccessKey: ${S3_ACCESS_KEY}
-      S3__SecretKey: ${S3_SECRET_KEY}
-      S3__ServiceURL: ${S3_SERVICE_URL}
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      S3__AccessKey: ${S3_ACCESS_KEY_PREVIEW}
+      S3__SecretKey: ${S3_SECRET_KEY_PREVIEW}
+      S3__ServiceURL: ${S3_SERVICE_URL_PREVIEW}
       S3__MainBucket__Name: vokimi-storage
       S3__ForcePathStyle: "true"
     networks:
@@ -216,10 +216,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/voki-comments:${TAG_VOKI_COMMENTS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__VokiCommentsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_comments_service_db;SslMode=Disable"
+      ConnectionStrings__VokiCommentsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_comments_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: VokiCommentsService
@@ -227,7 +227,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -242,10 +242,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/voki-ratings:${TAG_VOKI_RATINGS}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__VokiRatingsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_ratings_service_db;SslMode=Disable"
+      ConnectionStrings__VokiRatingsServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_ratings_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: VokiRatingsService
@@ -253,7 +253,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -268,10 +268,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/vokis-catalog:${TAG_VOKIS_CATALOG}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__VokisCatalogServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_vokis_catalog_service_db;SslMode=Disable"
+      ConnectionStrings__VokisCatalogServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_vokis_catalog_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: VokisCatalogService
@@ -279,7 +279,7 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
     networks:
       - ${NETWORK_NAME}
     depends_on:
@@ -294,10 +294,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/core-voki-creation:${TAG_CORE_VOKI_CREATION}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__CoreVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_core_service_db;SslMode=Disable"
+      ConnectionStrings__CoreVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_creation_core_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: CoreVokiCreationService
@@ -305,10 +305,10 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      S3__AccessKey: ${S3_ACCESS_KEY}
-      S3__SecretKey: ${S3_SECRET_KEY}
-      S3__ServiceURL: ${S3_SERVICE_URL}
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      S3__AccessKey: ${S3_ACCESS_KEY_PREVIEW}
+      S3__SecretKey: ${S3_SECRET_KEY_PREVIEW}
+      S3__ServiceURL: ${S3_SERVICE_URL_PREVIEW}
       S3__MainBucket__Name: vokimi-storage
       S3__ForcePathStyle: "true"
     networks:
@@ -327,10 +327,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/general-voki-creation:${TAG_GENERAL_VOKI_CREATION}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__GeneralVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_creation_general_service_db;SslMode=Disable"
+      ConnectionStrings__GeneralVokiCreationServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_creation_general_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: GeneralVokiCreationService
@@ -338,10 +338,10 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      S3__AccessKey: ${S3_ACCESS_KEY}
-      S3__SecretKey: ${S3_SECRET_KEY}
-      S3__ServiceURL: ${S3_SERVICE_URL}
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      S3__AccessKey: ${S3_ACCESS_KEY_PREVIEW}
+      S3__SecretKey: ${S3_SECRET_KEY_PREVIEW}
+      S3__ServiceURL: ${S3_SERVICE_URL_PREVIEW}
       S3__MainBucket__Name: vokimi-storage
       S3__ForcePathStyle: "true"
     networks:
@@ -360,10 +360,10 @@ services:
     image: ${CI_REGISTRY_IMAGE}/general-voki-taking:${TAG_GENERAL_VOKI_TAKING}
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__GeneralVokiTakingServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=vokimi_voki_taking_general_service_db;SslMode=Disable"
+      ConnectionStrings__GeneralVokiTakingServiceDb: "Host=postgres;Port=5432;User Id=${POSTGRES_USER_PREVIEW};Password=${POSTGRES_PASSWORD_PREVIEW};Database=vokimi_voki_taking_general_service_db;SslMode=Disable"
       MessageBroker__Host: rabbitmq
-      MessageBroker__Username: ${RABBITMQ_USER}
-      MessageBroker__Password: ${RABBITMQ_PASSWORD}
+      MessageBroker__Username: ${RABBITMQ_USER_PREVIEW}
+      MessageBroker__Password: ${RABBITMQ_PASSWORD_PREVIEW}
       MessageBroker__RetryCount: "3"
       MessageBroker__RetryIntervalSeconds: "5"
       ServiceName: GeneralVokiTakingService
@@ -371,10 +371,10 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      S3__AccessKey: ${S3_ACCESS_KEY}
-      S3__SecretKey: ${S3_SECRET_KEY}
-      S3__ServiceURL: ${S3_SERVICE_URL}
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      S3__AccessKey: ${S3_ACCESS_KEY_PREVIEW}
+      S3__SecretKey: ${S3_SECRET_KEY_PREVIEW}
+      S3__ServiceURL: ${S3_SERVICE_URL_PREVIEW}
       S3__MainBucket__Name: vokimi-storage
       S3__ForcePathStyle: "true"
     networks:
@@ -399,10 +399,10 @@ services:
       JwtTokenConfig__Issuer: vokimi_auth_service
       JwtTokenConfig__UserIdClaimKey: user_id_claim
       JwtTokenConfig__Audience: vokimi_frontend_app
-      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY}"
-      S3__AccessKey: ${S3_ACCESS_KEY}
-      S3__SecretKey: ${S3_SECRET_KEY}
-      S3__ServiceURL: ${S3_SERVICE_URL}
+      JwtTokenConfig__PublicKey: "${JWT_PUBLIC_KEY_PREVIEW}"
+      S3__AccessKey: ${S3_ACCESS_KEY_PREVIEW}
+      S3__SecretKey: ${S3_SECRET_KEY_PREVIEW}
+      S3__ServiceURL: ${S3_SERVICE_URL_PREVIEW}
       S3__MainBucket__Name: vokimi-storage
       S3__ForcePathStyle: "true"
     networks:
